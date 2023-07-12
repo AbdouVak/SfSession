@@ -4,8 +4,24 @@
 
 {% block body %}
     {% for session in sessions %}
-        {% for programme in session.programmes %}
-            <p>{{programme.module.nom}}</p>
-        {% endfor %}
+
+        {% if session %}
+            
+        {% endif %}
+        <p>
+            {{ session.formation.nom }} 
+            <a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session.nom}}<a>
+            {{ session.dateDebut | date('d-m-Y')}} 
+            {{ session.dateFin | date('d-m-Y')}} 
+            {{ session.stagiaires | length }}/
+            {{ session.placeTotal }}
+
+            {% if session.stagiaires | length == session.placeTotal %}
+                <p> Complet</p>
+            {% else %}
+                <p> Incomplet</p>
+            {% endif %}</p>
+            
+        
     {% endfor %}
 {% endblock %}

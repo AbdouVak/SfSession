@@ -34,6 +34,9 @@ class Session
     #[ORM\ManyToOne(inversedBy: 'sessions')]
     private ?Formation $formation = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $nom = null;
+
     public function __construct()
     {
         $this->stagiaires = new ArrayCollection();
@@ -143,6 +146,18 @@ class Session
     public function setFormation(?Formation $formation): static
     {
         $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }

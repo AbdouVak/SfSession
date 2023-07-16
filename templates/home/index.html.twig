@@ -3,25 +3,26 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
+    <div class="orangeBG">
+
     {% for session in sessions %}
-
         {% if session %}
-            
-        {% endif %}
-        <p>
-            {{ session.formation.nom }} 
-            <a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session.nom}}<a>
-            {{ session.dateDebut | date('d-m-Y')}} 
-            {{ session.dateFin | date('d-m-Y')}} 
-            {{ session.stagiaires | length }}/
-            {{ session.placeTotal }}
+            <div class="sessionBox">
+                {{ session.formation.nom }} 
+                <a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session.nom}}<a>
+                {{ session.dateDebut | date('d-m-Y')}} 
+                {{ session.dateFin | date('d-m-Y')}} 
+                {{ session.stagiaires | length }}/
+                {{ session.placeTotal }}
 
-            {% if session.stagiaires | length == session.placeTotal %}
-                <p> Complet</p>
-            {% else %}
-                <p> Incomplet</p>
-            {% endif %}</p>
-            
-        
+                {% if session.stagiaires | length == session.placeTotal %}
+                    <p> Complet</p>
+                {% else %}
+                    <p> Incomplet</p>
+                {% endif %}
+            </div>
+        {% endif %}
     {% endfor %}
+
+    </div>
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StagiaresController!{% endblock %}
+
+{% block body %}
+    <div class="orangeBG">
+    <h1>Fiche Stagiaire</h1>
+
+    <h2> {{ stagiaire.nom}} {{ stagiaire.prenom }} </h2>
+    <p class="infoBox"> {{"Sexe:"}} {{ stagiaire.sexe }}</p>
+    <p class="infoBox"> {{"Date de Naissance:"}} {{ stagiaire.dateNaissance | date('d-m-Y')}}</p>
+    <p class="infoBox"> {{"Ville:"}} {{ stagiaire.ville }}</p>
+    <p class="infoBox"> {{"Courriel:"}} {{ stagiaire.email }}</p>
+    <p class="infoBox"> {{"Téléphone:"}} {{ stagiaire.telephone }}</p>
+
+    <h2>Sessions prévues</h2>
+    {% for session in sessions %}
+        <div class="sessionBox">
+        <a href="{{ path('show_session' ,{'id': session.id}) }}">
+            <p> {{ "Intitulé"}} {{session.nom}} {{ "( du"}} {{ session.dateDebut | date('d-m-Y') }} {{ "au"}}  {{ session.dateFin | date('d-m-Y') }} {{")"}}</p>
+        </a>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

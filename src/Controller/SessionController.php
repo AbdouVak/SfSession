@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Entity\Stagiaire;
+use App\Repository\SessionRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,13 +14,15 @@ class SessionController extends AbstractController
 {
 
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session,ManagerRegistry $doctrine): Response
+    public function show(Session $session,ManagerRegistry $doctrine, SessionRepository $sessionRepository): Response
     {
-        $stagiairesNI = $doctrine->getRepository(Stagiaire::class)->findNonInscrits($session->getId());
-        
+        $stagiairesNI = $sessionRepository->findNonInscrits($session->getId());
+        $moduleAjoutable = $sessionRepository->findModule($session->getId());
+
         return $this->render('session/show.html.twig', [
             'session' => $session,
             'stagiairesNI' =>$stagiairesNI,
+            "moduleAjoutable" => $moduleAjoutable
         ]);
     }
 

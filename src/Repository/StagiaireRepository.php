@@ -46,5 +46,24 @@ class StagiaireRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    public function findSessions($stagiare_id): array
+    {
+        $em = $this->getEntityManager();
+        $sub = $em->createQueryBuilder();
 
+        $qb = $sub;
+        // sélectionner tous les stagiaires d'une session dont l'id est passé en paramètre
+        $qb->select('s')
+            ->from('App\Entity\Session', 's')
+            ->leftJoin('s.stagiaires', 'ss')
+            ->where('ss.id = :id')
+            ->setParameter('id', $stagiare_id)
+            // trier la liste des stagiaires sur le nom de famille
+            ->orderBy('ss.nom');
+        
+            
+        // renvoyer le résultat
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
 }

@@ -3,40 +3,40 @@
 {% block title %}Hello SessionController!{% endblock %}
 
 {% block body %}
-
+    <div class="orangeBG">
     <h1>   {{ session.nom }} </h1>
 
-    <p> Formation: {{ session.formation.nom }} </p>
-    <p> Date début: {{ session.dateDebut| date('d-m-Y')}} </p>
-    <p> Date fin: {{ session.dateFin| date('d-m-Y')}} </p>
-    <p> Inscrit: {{ session.stagiaires | length }}/{{ session.placeTotal }} </p>
+    <p class="infoBox"> Formation: {{ session.formation.nom }} </p>
+    <p class="infoBox"> Date début: {{ session.dateDebut| date('d-m-Y')}} </p>
+    <p class="infoBox"> Date fin: {{ session.dateFin| date('d-m-Y')}} </p>
+    <p class="infoBox"> Inscrit: {{ session.stagiaires | length }}/{{ session.placeTotal }} </p>
     {% if session.stagiaires | length == session.placeTotal %}
-            <p> Complet</p>
+            <p class="complet"> Complet</p>
         {% else %}
-            <p> Incomplet</p>
+            <p class="incomplet"> Incomplet</p>
     {% endif %}
 
 
     <h2>Stagiare inscrit</h2>
-
-    <table>
+    <table class="sessionBox">
         <tr>
           <th>Prénom</th>
           <th>Nom</th>
+          <th>Ajouté</th>
         </tr>
         <tr>
             {% for stagiaire in session.stagiaires %}
-                <td>{{stagiaire.nom}}</td>
-                <td>{{stagiaire.prenom}}</td>
+                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}<a></td>
+                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}<a></td>
             {% endfor %}
         </tr>
     </table>
 
     <h2>Modulé ajouté</h2>
-
-    <table>
+    <table class="sessionBox">
         <tr>
           <th>Nom</th>
+          <th>Retiré</th>
         </tr>
         <tr>
             {% for programme in session.programmes %}
@@ -46,18 +46,31 @@
     </table>
     
     <h2>Stagiare non-inscrit</h2>
-
-    <table>
+    <table class="sessionBox">
         <tr>
           <th>Prénom</th>
           <th>Nom</th>
+          <th>Ajouté</th>
         </tr>
         <tr>
             {% for stagiaire in stagiairesNI %}
-                <td>{{stagiaire.nom}}</td>
-                <td>{{stagiaire.prenom}}</td>
+                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}</a></td>
+                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}</a></td>
             {% endfor %}
         </tr>
     </table>
 
+    <h2>Module ajoutable</h2>
+    <table class="sessionBox">
+        <tr>
+          <th>nom</th>
+          <th>Ajouté</th>
+        </tr>
+        <tr>
+            {% for module in moduleAjoutable %}
+                <td>{{ module.nom}}</td>
+            {% endfor %}
+        </tr>
+    </table>
+    </div>
 {% endblock %}

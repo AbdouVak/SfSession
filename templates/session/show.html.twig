@@ -5,6 +5,7 @@
 {% block body %}
     <div class="orangeBG">
     <h1>   {{ session.nom }} </h1>
+    <p><a href="{{ path('edit_session',{'id': session.id}) }}" >modifier</a></p>
 
     <p class="infoBox"> Formation: {{ session.formation.nom }} </p>
     <p class="infoBox"> Date début: {{ session.dateDebut| date('d-m-Y')}} </p>

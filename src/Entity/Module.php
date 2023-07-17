@@ -18,16 +18,16 @@ class Module
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(mappedBy: 'module', targetEntity: Programme::class)]
-    private Collection $programmes;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
 
-    #[ORM\OneToMany(mappedBy: 'module', targetEntity: Categorie::class)]
-    private Collection $categories;
+    #[ORM\ManyToMany(targetEntity: Programme::class, inversedBy: 'modules')]
+    private Collection $programmes;
 
     public function __construct()
     {
         $this->programmes = new ArrayCollection();
-        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,6 +47,18 @@ class Module
         return $this;
     }
 
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Programme>
      */
@@ -59,7 +71,6 @@ class Module
     {
         if (!$this->programmes->contains($programme)) {
             $this->programmes->add($programme);
-            $programme->setModule($this);
         }
 
         return $this;
@@ -67,42 +78,7 @@ class Module
 
     public function removeProgramme(Programme $programme): static
     {
-        if ($this->programmes->removeElement($programme)) {
-            // set the owning side to null (unless already changed)
-            if ($programme->getModule() === $this) {
-                $programme->setModule(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Categorie>
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Categorie $category): static
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-            $category->setModule($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Categorie $category): static
-    {
-        if ($this->categories->removeElement($category)) {
-            // set the owning side to null (unless already changed)
-            if ($category->getModule() === $this) {
-                $category->setModule(null);
-            }
-        }
+        $this->programmes->removeElement($programme);
 
         return $this;
     }

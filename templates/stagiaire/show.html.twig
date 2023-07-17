@@ -5,6 +5,7 @@
 {% block body %}
     <div class="orangeBG">
     <h1>Fiche Stagiaire</h1>
+    <p><a href="{{ path('edit_stagiaire',{'id': stagiaire.id}) }}" >modifier</a></p>
 
     <h2> {{ stagiaire.nom}} {{ stagiaire.prenom }} </h2>
     <p class="infoBox"> {{"Sexe:"}} {{ stagiaire.sexe }}</p>

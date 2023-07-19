@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Entity\Module;
+use App\Entity\Stagiaire;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -10,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class SessionController extends AbstractController
 {
     #[Route('/session/add', name: 'add_session')]
@@ -38,7 +40,30 @@ class SessionController extends AbstractController
         ]);
     }
     
-    
+    #[Route('/session/remove/{stagiaire_id}/{session_id}', name: 'remove_stagiaire')]
+    #[ParamConverter('stagiaire', options: ['id' => 'stagiaire_id'])]
+    #[ParamConverter('session', options: ['id' => 'session_id'])]
+    public function removeStagiaire(Session $session,Stagiaire $stagiaire,ManagerRegistry $doctrine): Response
+    {
+        $session->removeStagiaire($stagiaire);
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($session);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_session');    
+    }
+
+    #[Route('/session/remove/{module_id}/{session_id}', name: 'remove_module')]
+    #[ParamConverter('module', options: ['id' => 'module_id'])]
+    #[ParamConverter('session', options: ['id' => 'session_id'])]
+    public function removeModule(Session $session,ManagerRegistry $doctrine): Response
+    {
+        
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($session);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_session');    
+    }
+
     #[Route('/session/{id}', name: 'show_session')]
     public function show(Session $session, SessionRepository $sessionRepository): Response
     {

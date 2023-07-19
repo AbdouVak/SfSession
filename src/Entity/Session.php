@@ -28,14 +28,16 @@ class Session
     #[ORM\ManyToMany(targetEntity: Stagiaire::class, inversedBy: 'sessions')]
     private Collection $stagiaires;
 
-    #[ORM\OneToMany(mappedBy: 'session', targetEntity: Programme::class)]
-    private Collection $programmes;
+
 
     #[ORM\ManyToOne(inversedBy: 'sessions')]
     private ?Formation $formation = null;
 
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
+
+    #[ORM\OneToMany(mappedBy: 'session', targetEntity: Programme::class)]
+    private Collection $programmes;
 
     public function __construct()
     {
@@ -108,6 +110,36 @@ class Session
         return $this;
     }
 
+
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): static
+    {
+        $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function __toString(){
+        return $this->nom;
+    }
+
     /**
      * @return Collection<int, Programme>
      */
@@ -136,33 +168,5 @@ class Session
         }
 
         return $this;
-    }
-
-    public function getFormation(): ?Formation
-    {
-        return $this->formation;
-    }
-
-    public function setFormation(?Formation $formation): static
-    {
-        $this->formation = $formation;
-
-        return $this;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): static
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function __toString(){
-        return $this->nom;
     }
 }

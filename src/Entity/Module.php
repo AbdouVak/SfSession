@@ -18,12 +18,11 @@ class Module
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Categorie $categorie = null;
-
-    #[ORM\ManyToMany(targetEntity: Programme::class, inversedBy: 'modules')]
+    #[ORM\OneToMany(mappedBy: 'module', targetEntity: Programme::class)]
     private Collection $programmes;
+
+    #[ORM\ManyToOne(inversedBy: 'modules')]
+    private ?Categorie $categorie = null;
 
     public function __construct()
     {
@@ -47,18 +46,6 @@ class Module
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(?Categorie $categorie): static
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Programme>
      */
@@ -71,6 +58,7 @@ class Module
     {
         if (!$this->programmes->contains($programme)) {
             $this->programmes->add($programme);
+            $programme->setModule($this);
         }
 
         return $this;
@@ -78,7 +66,24 @@ class Module
 
     public function removeProgramme(Programme $programme): static
     {
-        $this->programmes->removeElement($programme);
+        if ($this->programmes->removeElement($programme)) {
+            // set the owning side to null (unless already changed)
+            if ($programme->getModule() === $this) {
+                $programme->setModule(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }

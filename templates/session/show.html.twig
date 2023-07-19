@@ -25,12 +25,15 @@
           <th>Nom</th>
           <th>Ajouté</th>
         </tr>
-        <tr>
-            {% for stagiaire in session.stagiaires %}
+        
+        {% for stagiaire in session.stagiaires %}
+            <tr>
                 <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}<a></td>
                 <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}<a></td>
-            {% endfor %}
-        </tr>
+                <th><a href="{{ path('remove_stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': stagiaire.id}) }}"><i class="fa-solid fa-minus"></i></a></th>
+            </tr>    
+        {% endfor %}
+        
     </table>
 
     <h2>Modulé ajouté</h2>
@@ -39,11 +42,13 @@
           <th>Nom</th>
           <th>Retiré</th>
         </tr>
-        <tr>
-            {% for programme in session.programmes %}
+        
+        {% for programme in session.programmes %}
+            <tr>
                 <td>{{programme.module.nom}}</td>
-            {% endfor %}
-        </tr>
+            </tr>
+        {% endfor %}
+        
     </table>
     
     <h2>Stagiare non-inscrit</h2>
@@ -53,12 +58,15 @@
           <th>Nom</th>
           <th>Ajouté</th>
         </tr>
-        <tr>
-            {% for stagiaire in stagiairesNI %}
+        
+        {% for stagiaire in stagiairesNI %}
+            <tr>
                 <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}</a></td>
                 <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}</a></td>
-            {% endfor %}
-        </tr>
+                <td><a href="{{ path('add_stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': stagiaire.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
+            </tr>
+        {% endfor %}
+        
     </table>
 
     <h2>Module ajoutable</h2>
@@ -67,11 +75,13 @@
           <th>nom</th>
           <th>Ajouté</th>
         </tr>
-        <tr>
-            {% for module in moduleAjoutable %}
-                <td>{{ module.nom}}</td>
-            {% endfor %}
-        </tr>
+        
+        {% for module in moduleAjoutable %}
+            <tr>
+                <th>{{ module.nom}}</th>
+                <th><a href="#"><i class="fa-solid fa-plus"></i></a></th>
+            </tr>
+        {% endfor %}
     </table>
     </div>
 {% endblock %}

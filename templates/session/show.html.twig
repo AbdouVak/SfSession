@@ -18,24 +18,68 @@
     {% endif %}
 
 
+
+
+
+
+
+
+
     <h2>Stagiare inscrit</h2>
     <table class="sessionBox">
+
         <tr>
           <th>Prénom</th>
           <th>Nom</th>
           <th>Ajouté</th>
         </tr>
         
+
         {% for stagiaire in session.stagiaires %}
             <tr>
                 <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}<a></td>
+
                 <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}<a></td>
-                <th><a href="{{ path('remove_stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': stagiaire.id}) }}"><i class="fa-solid fa-minus"></i></a></th>
+
+                <th><a href="{{ path('remove_stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></th>
             </tr>    
         {% endfor %}
         
+
     </table>
 
+    
+    <h2>Stagiare non-inscrit</h2>
+    <table class="sessionBox">
+
+        <tr>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Ajouté</th>
+        </tr>
+        
+
+        {% for stagiaire in stagiairesNI %}
+            <tr>
+                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}</a></td>
+
+                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}</a></td>
+
+                <td><a href="{{ path('add_Stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
+            </tr>
+        {% endfor %}
+        
+
+    </table>
+
+
+
+
+
+
+
+
+    
     <h2>Modulé ajouté</h2>
     <table class="sessionBox">
         <tr>
@@ -46,28 +90,14 @@
         {% for programme in session.programmes %}
             <tr>
                 <td>{{programme.module.nom}}</td>
+                <td><a href="{{ path('remove_Programme' ,{'programme_id': programme.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
             </tr>
         {% endfor %}
         
     </table>
-    
-    <h2>Stagiare non-inscrit</h2>
-    <table class="sessionBox">
-        <tr>
-          <th>Prénom</th>
-          <th>Nom</th>
-          <th>Ajouté</th>
-        </tr>
-        
-        {% for stagiaire in stagiairesNI %}
-            <tr>
-                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}</a></td>
-                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}</a></td>
-                <td><a href="{{ path('add_stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': stagiaire.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
-            </tr>
-        {% endfor %}
-        
-    </table>
+
+
+
 
     <h2>Module ajoutable</h2>
     <table class="sessionBox">
@@ -79,7 +109,7 @@
         {% for module in moduleAjoutable %}
             <tr>
                 <th>{{ module.nom}}</th>
-                <th><a href="#"><i class="fa-solid fa-plus"></i></a></th>
+
             </tr>
         {% endfor %}
     </table>

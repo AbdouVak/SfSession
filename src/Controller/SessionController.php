@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Programme;
 use App\Entity\Session;
 use App\Entity\Module;
 use App\Entity\Stagiaire;
@@ -40,7 +41,10 @@ class SessionController extends AbstractController
         ]);
     }
     
-    #[Route('/session/remove/{stagiaire_id}/{session_id}', name: 'remove_stagiaire')]
+
+
+
+    #[Route('/session/removeSta/{stagiaire_id}/{session_id}', name: 'remove_stagiaire')]
     #[ParamConverter('stagiaire', options: ['id' => 'stagiaire_id'])]
     #[ParamConverter('session', options: ['id' => 'session_id'])]
     public function removeStagiaire(Session $session,Stagiaire $stagiaire,ManagerRegistry $doctrine): Response
@@ -49,20 +53,53 @@ class SessionController extends AbstractController
         $entityManager = $doctrine->getManager();
         $entityManager->persist($session);
         $entityManager->flush();
-        return $this->redirectToRoute('app_session');    
+        return $this->redirectToRoute('show_session',['id'=>$session->getId()]);    
     }
 
-    #[Route('/session/remove/{module_id}/{session_id}', name: 'remove_module')]
-    #[ParamConverter('module', options: ['id' => 'module_id'])]
+
+
+
+    #[Route('/session/addSta/{stagiaire_id}/{session_id}', name: 'add_Stagiaire')]
+    #[ParamConverter('stagiaire', options: ['id' => 'stagiaire_id'])]
     #[ParamConverter('session', options: ['id' => 'session_id'])]
-    public function removeModule(Session $session,ManagerRegistry $doctrine): Response
+    public function addStagiaire(Session $session,Stagiaire $stagiaire,ManagerRegistry $doctrine): Response
     {
-        
+        $session->addStagiaire($stagiaire);
         $entityManager = $doctrine->getManager();
         $entityManager->persist($session);
         $entityManager->flush();
-        return $this->redirectToRoute('app_session');    
+        return $this->redirectToRoute('show_session',['id'=>$session->getId()]);    
     }
+
+
+
+
+    #[Route('/session/removeProgramme/{programme_id}/{session_id}', name: 'remove_Programme')]
+    #[ParamConverter('programme', options: ['id' => 'programme_id'])]
+    #[ParamConverter('session', options: ['id' => 'session_id'])]
+    public function removeProgramme(Session $session,Programme $programme,ManagerRegistry $doctrine): Response
+    {
+        $session->removeProgramme($programme);
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($session);
+        $entityManager->flush();
+        return $this->redirectToRoute('show_session',['id'=>$session->getId()]);    
+    }
+
+    #[Route('/session/addProgramme/{programme_id}/{session_id}', name: 'add_Programme')]
+    #[ParamConverter('programme', options: ['id' => 'programme_id'])]
+    #[ParamConverter('session', options: ['id' => 'session_id'])]
+    public function addProgramme(Session $session,Programme $programme,ManagerRegistry $doctrine): Response
+    {
+        $session->addProgramme($programme);
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($session);
+        $entityManager->flush();
+        return $this->redirectToRoute('show_session',['id'=>$session->getId()]);    
+    }
+
+
+    
 
     #[Route('/session/{id}', name: 'show_session')]
     public function show(Session $session, SessionRepository $sessionRepository): Response

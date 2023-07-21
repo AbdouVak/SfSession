@@ -3,6 +3,7 @@
 {% block title %}Hello SessionController!{% endblock %}
 
 {% block body %}
+    <main>
     <h1>Liste des sessions</h1>
 
     <a href="{{ path('add_session')}}">Ajouter sessions</a><br>
@@ -37,4 +38,5 @@
             </tr>
             {% endfor %}
     </table>
+    </main>
 {% endblock %}

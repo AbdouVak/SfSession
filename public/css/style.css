@@ -2,9 +2,9 @@
     margin: 0px;
     padding: 0px;
     vertical-align: top;
-    font-family: "Poppins";
-    background-color: orange;
-    font-family: "Times New Roman", Times, serif;
+    font-family: Verdana ;
+    background-color: #FB7700;
+
 }
 
 nav{
@@ -13,4 +13,8 @@ nav{
     justify-content: center;
     padding-top: 50px;
     padding-bottom: 50px;
+}
+
+main{
+    background-color: #680000;
 }

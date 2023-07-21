@@ -135,8 +135,4 @@ class SessionController extends AbstractController
             'sessions' => $sessions,
         ]);
     }
-
-    
-
-    
 }

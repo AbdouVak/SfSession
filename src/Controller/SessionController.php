@@ -44,6 +44,7 @@ class SessionController extends AbstractController
 
 
 
+
     #[Route('/session/removeSta/{stagiaire_id}/{session_id}', name: 'remove_stagiaire')]
     #[ParamConverter('stagiaire', options: ['id' => 'stagiaire_id'])]
     #[ParamConverter('session', options: ['id' => 'session_id'])]
@@ -55,8 +56,6 @@ class SessionController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('show_session',['id'=>$session->getId()]);    
     }
-
-
 
 
     #[Route('/session/addSta/{stagiaire_id}/{session_id}', name: 'add_Stagiaire')]
@@ -74,32 +73,47 @@ class SessionController extends AbstractController
 
 
 
+
+    // route/fonction pour supprimer un prgramme d'une session
     #[Route('/session/removeProgramme/{programme_id}/{session_id}', name: 'remove_Programme')]
     #[ParamConverter('programme', options: ['id' => 'programme_id'])]
     #[ParamConverter('session', options: ['id' => 'session_id'])]
     public function removeProgramme(Session $session,Programme $programme,ManagerRegistry $doctrine): Response
     {
-        $session->removeProgramme($programme);
+        
         $entityManager = $doctrine->getManager();
+        // faire ca au lieux de $notreEntité->removeNotreEntitéEntitéASupprimé(EntitéASupprimé)
+        $entityManager->remove($programme);
         $entityManager->persist($session);
         $entityManager->flush();
         return $this->redirectToRoute('show_session',['id'=>$session->getId()]);    
     }
 
-    #[Route('/session/addProgramme/{programme_id}/{session_id}', name: 'add_Programme')]
-    #[ParamConverter('programme', options: ['id' => 'programme_id'])]
+
+
+
+    #[Route('/session/addProgramme/{module_id}/{session_id}', name: 'add_Programme')]
+    #[ParamConverter('module', options: ['id' => 'module_id'])]
     #[ParamConverter('session', options: ['id' => 'session_id'])]
-    public function addProgramme(Session $session,Programme $programme,ManagerRegistry $doctrine): Response
+    public function addProgramme(Session $session,Module $module,ManagerRegistry $doctrine): Response
     {
-        $session->addProgramme($programme);
+        //crée un programme
+        $programme = new Programme();
+        $programme->setSession($session);
+        $programme->setModule($module);
+        $programme->setJour($_POST['jour']);
+
         $entityManager = $doctrine->getManager();
-        $entityManager->persist($session);
+        $entityManager->persist($programme);
         $entityManager->flush();
+
         return $this->redirectToRoute('show_session',['id'=>$session->getId()]);    
     }
 
 
-    
+
+
+
 
     #[Route('/session/{id}', name: 'show_session')]
     public function show(Session $session, SessionRepository $sessionRepository): Response

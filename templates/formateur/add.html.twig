@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FormateurController!{% endblock %}
+
+{% block body %}
+    <h1>Liste des formateurs</h1>
+
+    {{ form_start(formAddFormateur) }}
+        {{form_row(formAddFormateur.nom) }}
+        {{form_row(formAddFormateur.prenom) }}
+    {{ form_end(formAddFormateur) }}
+    
+{% endblock %}

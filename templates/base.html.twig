@@ -16,7 +16,7 @@
     <body>
         <nav>
             <ul>
-                <lo><a href="{{ path('app_formateur') }}">Liste des formateurs</a></lo>
+                <lo><a href="{{ path('app_formateur') }}">Liste des formateur</a></lo>
                 <lo><a href="{{ path('app_session') }}">Liste des sessions</a></lo>
                 <lo><a href="{{ path('app_stagiaire') }}">Liste des stagiaires</a></lo>
                 <lo><a href="{{ path('app_formation') }}">Liste des formations</a></lo>
@@ -28,5 +28,8 @@
                 {% endif %}
             </ul>
         </nav>
+                
+        {% block body %}
+        {% endblock %}
     </body>
 </html>

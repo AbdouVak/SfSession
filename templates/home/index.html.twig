@@ -3,11 +3,11 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <div class="orangeBG">
+    <div>
 
     {% for session in sessions %}
         {% if session %}
-            <div class="sessionBox">
+            <div >
                 {{ session.formation.nom }} 
                 <a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session.nom}}<a>
                 {{ session.dateDebut | date('d-m-Y')}} 

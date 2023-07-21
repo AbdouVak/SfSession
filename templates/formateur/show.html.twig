@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FormateurController!{% endblock %}
+
+{% block body %}
+    <h1> {{ formateur}}</h1>
+    <p><a href="{{ path('edit_formateur',{'id': formateur.id}) }}" >modifier</a></p>
+
+    <h2>Listes des sessions</h2>
+    {% for session in formateur.sessions %}
+        <a href="{{ path('show_session' ,{'id': session.id}) }}">
+            <p> {{ "Intitulé"}} {{session.nom}} {{ "( du"}} {{ session.dateDebut | date('d-m-Y') }} {{ "au"}}  {{ session.dateFin | date('d-m-Y') }} {{")"}}</p>
+        </a>        
+    {% endfor %}
+{% endblock %}

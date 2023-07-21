@@ -3,7 +3,7 @@
 {% block title %}Hello SessionController!{% endblock %}
 
 {% block body %}
-    <div class="orangeBG">
+    <div>
     <h1>   {{ session.nom }} </h1>
     <p><a href="{{ path('edit_session',{'id': session.id}) }}" >modifier</a></p>
 
@@ -18,15 +18,8 @@
     {% endif %}
 
 
-
-
-
-
-
-
-
     <h2>Stagiare inscrit</h2>
-    <table class="sessionBox">
+    <table>
 
         <tr>
           <th>Prénom</th>
@@ -45,12 +38,11 @@
             </tr>    
         {% endfor %}
         
-
     </table>
 
     
     <h2>Stagiare non-inscrit</h2>
-    <table class="sessionBox">
+    <table>
 
         <tr>
           <th>Prénom</th>
@@ -73,15 +65,9 @@
     </table>
 
 
-
-
-
-
-
-
     
     <h2>Modulé ajouté</h2>
-    <table class="sessionBox">
+    <table>
         <tr>
           <th>Nom</th>
           <th>Retiré</th>
@@ -97,20 +83,27 @@
     </table>
 
 
-
+    
 
     <h2>Module ajoutable</h2>
-    <table class="sessionBox">
+    <table>
         <tr>
-          <th>nom</th>
+          <th>Nom</th>
+          <th>Jour</th>
           <th>Ajouté</th>
         </tr>
         
         {% for module in moduleAjoutable %}
-            <tr>
-                <th>{{ module.nom}}</th>
+            <form action="{{ path('add_Programme' ,{'module_id': module.id,'session_id': session.id}) }}" method="post" id="". module.nom ."" >
 
-            </tr>
+                <tr>
+                    <td>{{ module.nom}}</td>
+                    <td><input type="number" name="jour"></td>
+                    <td><input type="submit" value="ajouter module" id="". module.nom .""></i></td>
+                </tr>
+
+            </form>
+            
         {% endfor %}
     </table>
     </div>

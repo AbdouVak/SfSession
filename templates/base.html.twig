@@ -14,37 +14,19 @@
         {% endblock %}
     </head>
     <body>
-        <div class="area">
-            
-
-            <ul class="circles">
-                
-                <nav>
-                    <ul>
-                        <lo><a href="{{ path('app_formateur') }}">Liste des formateurs</a></lo>
-                        <lo><a href="{{ path('app_session') }}">Liste des sessions</a></lo>
-                        <lo><a href="{{ path('app_stagiaire') }}">Liste des stagiaires</a></lo>
-                        <lo><a href="{{ path('app_formation') }}">Liste des formations</a></lo>
-                        {% if app.user %}
-                            <lo><a href="{{ path('app_logout') }}" >Se déconnecter</a></lo>
-                        {% else %}
-                            <lo><a href="{{ path('app_register') }}">S'inscrire</a></lo>
-                            <lo><a href="{{ path('app_login') }}">Se connecter</a></lo>
-                        {% endif %}
-                    </ul>
-                </nav>
-                {% block body %}{% endblock %}
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+        <nav>
+            <ul>
+                <lo><a href="{{ path('app_formateur') }}">Liste des formateurs</a></lo>
+                <lo><a href="{{ path('app_session') }}">Liste des sessions</a></lo>
+                <lo><a href="{{ path('app_stagiaire') }}">Liste des stagiaires</a></lo>
+                <lo><a href="{{ path('app_formation') }}">Liste des formations</a></lo>
+                {% if app.user %}
+                    <lo><a href="{{ path('app_logout') }}" >Se déconnecter</a></lo>
+                {% else %}
+                    <lo><a href="{{ path('app_register') }}">S'inscrire</a></lo>
+                    <lo><a href="{{ path('app_login') }}">Se connecter</a></lo>
+                {% endif %}
             </ul>
-        </div >
+        </nav>
     </body>
 </html>

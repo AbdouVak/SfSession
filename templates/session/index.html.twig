@@ -7,9 +7,34 @@
 
     <a href="{{ path('add_session')}}">Ajouter sessions</a><br>
 
-    {% for session in sessions %}
-        <a href="{{ path('show_session' ,{'id': session.id}) }}">
-            <p> {{ session }} </p>
-        <a>
-    {% endfor %}
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Formation</th>
+            <th>Formateur</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Inscrit</th>
+            <th>Modification</th>
+        </tr>
+    
+        {% for session in sessions %}
+            <tr> 
+                <th><a href="{{ path('show_session' ,{'id': session.id}) }}">
+                    <p> {{ session }} </p>
+                <a></th>
+                <th><p>{{session.formation}}</p></th>
+                <th><p>{{session.formateur}}</p></th>
+                <th><p>{{session.dateDebut | date('d-m-Y')}}</p></th>
+                <th><p>{{session.dateFin | date('d-m-Y')}}</p></th>
+                <th><p>{{ session.stagiaires | length }}/{{ session.placeTotal }}</p></th>
+                {% if session.stagiaires | length == session.placeTotal %}
+                    <th><p class="complet"> Complet</p></th>
+                {% else %}
+                    <th><p class="incomplet"> Incomplet</p></th>
+                {% endif %}
+                <th><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></th>
+            </tr>
+            {% endfor %}
+    </table>
 {% endblock %}

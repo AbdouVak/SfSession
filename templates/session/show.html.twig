@@ -7,10 +7,11 @@
     <h1>   {{ session.nom }} </h1>
     <p><a href="{{ path('edit_session',{'id': session.id}) }}" >modifier</a></p>
 
-    <p class="infoBox"> Formation: {{ session.formation.nom }} </p>
-    <p class="infoBox"> Date début: {{ session.dateDebut| date('d-m-Y')}} </p>
-    <p class="infoBox"> Date fin: {{ session.dateFin| date('d-m-Y')}} </p>
-    <p class="infoBox"> Inscrit: {{ session.stagiaires | length }}/{{ session.placeTotal }} </p>
+    <p> Formation: {{ session.formation.nom }} </p>
+    <p> Formateur: <a href="{{ path('show_formateur' ,{'id': session.formateur.id}) }}">{{ session.formateur }}</a> </p>
+    <p> Date début: {{ session.dateDebut| date('d-m-Y')}} </p>
+    <p> Date fin: {{ session.dateFin| date('d-m-Y')}} </p>
+    <p> Inscrit: {{ session.stagiaires | length }}/{{ session.placeTotal }} </p>
     {% if session.stagiaires | length == session.placeTotal %}
             <p class="complet"> Complet</p>
         {% else %}
@@ -22,9 +23,9 @@
     <table>
 
         <tr>
-          <th>Prénom</th>
-          <th>Nom</th>
-          <th>Ajouté</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Ajouté</th>
         </tr>
         
 
@@ -45,11 +46,10 @@
     <table>
 
         <tr>
-          <th>Prénom</th>
-          <th>Nom</th>
-          <th>Ajouté</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Ajouté</th>
         </tr>
-        
 
         {% for stagiaire in stagiairesNI %}
             <tr>

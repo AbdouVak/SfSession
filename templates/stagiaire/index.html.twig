@@ -5,11 +5,22 @@
 {% block body %}
     <h1>Liste des stagiaires</h1>
 
-    <a href="{{ path('add_stagiaire')}}">Ajouter stagiaire</a><br>
+    <main>
+        <a href="{{ path('add_stagiaire')}}">Ajouter stagiaire</a>
 
-    {% for stagiaire in stagiaires %}
-        <a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">
-            <p> {{ stagiaire }} </p>
-        <a>
-    {% endfor %}
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+            </tr>
+
+            {% for stagiaire in stagiaires %}
+            <tr>
+                <th><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{ stagiaire.nom }}</a></th>
+
+                <th><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{ stagiaire.prenom }}</a></th>
+            </tr>
+            {% endfor %}
+        </table>
+    </main>
 {% endblock %}

@@ -4,12 +4,20 @@
 
 {% block body %}
     <h1>Liste des formateurs</h1>
+    <main>
+        <a class="btn" href="{{ path('add_formateur')}}">Ajouter formateur</a>
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+            </tr>
 
-    <a href="{{ path('add_formateur')}}">Ajouter formateur</a><br>
-
-    {% for formateur in formateurs %}
-        <a href="{{ path('show_formateur' ,{'id': formateur.id}) }}">
-            <p> {{ formateur }} </p>
-        <a>
-    {% endfor %}
+            {% for formateur in formateurs %}
+                <tr>
+                    <th><a href="{{ path('show_formateur' ,{'id': formateur.id}) }}">{{ formateur.nom}}  </a></th>
+                    <th><a href="{{ path('show_formateur' ,{'id': formateur.id}) }}">{{ formateur.prenom}}  </a></th>
+                </tr>
+            {% endfor %}
+        </table>
+    </main>
 {% endblock %}

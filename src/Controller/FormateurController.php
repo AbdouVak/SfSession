@@ -12,16 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FormateurController extends AbstractController
 {
-    #[Route('/formateur', name: 'app_formateur')]
-    public function index(ManagerRegistry $doctrine): Response{
-        $formateurs = $doctrine->getRepository(Formateur::class)->findBy([],["nom"=>"DESC"]);
-        return $this->render('formateur/index.html.twig', [
-            'formateurs' => $formateurs,
-        ]);
-    }
-
     
-    #[Route('/formateur', name: 'add_formateur')]
+    #[Route('/formateur/add', name: 'add_formateur')]
     #[Route('/formateur/{id}/edit', name: 'edit_formateur')]
     public function add(ManagerRegistry $doctrine,Formateur $formateur = null,Request $request): Response
     {
@@ -46,6 +38,16 @@ class FormateurController extends AbstractController
             'edit'=> $formateur->getId()
         ]);
     }
+
+    #[Route('/formateur', name: 'app_formateur')]
+    public function index(ManagerRegistry $doctrine ): Response{
+        $formateurs = $doctrine->getRepository(Formateur::class)->findBy([],["nom"=>"DESC"]);
+        return $this->render('formateur/index.html.twig', [
+            'formateurs' => $formateurs,
+        ]);
+    }
+
+    
     
     #[Route('/formateur/{id}', name: 'show_formateur')]
     public function show(Formateur $formateur): Response

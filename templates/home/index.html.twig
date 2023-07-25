@@ -4,110 +4,110 @@
 
 {% block body %}
 
-    <h2>Session a venir</h2>
-    <table>
-        <tr class="infoTR">
-            <th>Nom</th>
-            <th>Formation</th>
-            <th>Formateur</th>
-            <th>Date début</th>
-            <th>Date fin</th>
-            <th>Inscrit</th>
-            <th>Status</th>
-            <th>Edit</th>
-        </tr>
-        {% for session in sessionAVenir %}
-            {% if session %}
-            <tr class="sessionTR"> 
-            <th><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></th>
-                <th><p>{{session.formation}}</p></th>
-                <th><p>{{session.formateur}}</p></th>
-                <th><p>{{session.dateDebut | date('d-m-Y')}}</p></th>
-                <th><p>{{session.dateFin | date('d-m-Y')}}</p></th>
-                <th><p>{{ session.stagiaires | length }}/{{ session.placeTotal }}</p></th>
-
-                {% if session.stagiaires | length == session.placeTotal %}
-                    <th><p class="complet"> Complet</p></th>
-                {% else %}
-                    <th><p class="incomplet"> Incomplet</p></th>
-                {% endif %}
-
-                <th><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></th>
+    <h1>Session</h1>
+    <div class="container">
+    <main>
+        <h2>Session a venir</h2>
+        <table>
+            <tr class="infoTR">
+                <th>Nom</th>
+                <th>Formation</th>
+                <th>Formateur</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Inscrit</th>
+                <th>Status</th>
+                <th>Edit</th>
             </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
-
-
-
-    <h2>Session en cours</h2>
-    <table>
-        <tr class="infoTR">
-            <th>Nom</th>
-            <th>Formation</th>
-            <th>Formateur</th>
-            <th>Date début</th>
-            <th>Date fin</th>
-            <th>Inscrit</th>
-            <th>Status</th>
-            <th>Edit</th>
-        </tr>
-        {% for session in sessionEnCours %}
-            {% if session %}
+            {% for session in sessionAVenir %}
+                {% if session %}
                 <tr class="sessionTR"> 
-                    <th><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></th>
-                    <th><p>{{session.formation}}</p></th>
-                    <th><p>{{session.formateur}}</p></th>
-                    <th><p>{{session.dateDebut | date('d-m-Y')}}</p></th>
-                    <th><p>{{session.dateFin | date('d-m-Y')}}</p></th>
-                    <th><p>{{ session.stagiaires | length }}/{{ session.placeTotal }}</p></th>
+                <th><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></th>
+                    <th>{{session.formation}}</th>
+                    <th>{{session.formateur}}</th>
+                    <th>{{session.dateDebut | date('d-m-Y')}}</th>
+                    <th>{{session.dateFin | date('d-m-Y')}}</th>
+                    <th>{{ session.stagiaires | length }}/{{ session.placeTotal }}</th>
 
                     {% if session.stagiaires | length == session.placeTotal %}
-                        <th><p class="complet"> Complet</p></th>
+                        <th class="complet">Complet</th>
                     {% else %}
-                        <th><p class="incomplet"> Incomplet</p></th>
+                        <th class="incomplet"><p class="incomplet"> Incomplet</th>
                     {% endif %}
 
                     <th><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></th>
                 </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
+                {% endif %}
+            {% endfor %}
+        </table>
 
+        <h2>Session en cours</h2>
+        <table>
+            <tr class="infoTR">
+                <th>Nom</th>
+                <th>Formation</th>
+                <th>Formateur</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Inscrit</th>
+                <th>Status</th>
+                <th>Edit</th>
+            </tr>
+            {% for session in sessionEnCours %}
+                {% if session %}
+                    <tr class="sessionTR"> 
+                        <th><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></th>
+                        <th>{{session.formation}}</th>
+                        <th>{{session.formateur}}</th>
+                        <th>{{session.dateDebut | date('d-m-Y')}}</th>
+                        <th>{{session.dateFin | date('d-m-Y')}}</th>
+                        <th>{{ session.stagiaires | length }}/{{ session.placeTotal }}</th>
 
+                        {% if session.stagiaires | length == session.placeTotal %}
+                        <th class="complet">Complet</th>
+                        {% else %}
+                            <th class="incomplet"><p class="incomplet"> Incomplet</th>
+                        {% endif %}
 
-    <h2>Session fini</h2>
-    <table>
-        <tr class="infoTR">
-            <th>Nom</th>
-            <th>Formation</th>
-            <th>Formateur</th>
-            <th>Date début</th>
-            <th>Date fin</th>
-            <th>Inscrit</th>
-            <th>Status</th>
-            <th>Edit</th>
-        </tr>
-        {% for session in sessionFini %}
-            {% if session %}
-                <tr class="sessionTR"> 
-                    <th><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></th>
-                    <th><p>{{session.formation}}</p></th>
-                    <th><p>{{session.formateur}}</p></th>
-                    <th><p>{{session.dateDebut | date('d-m-Y')}}</p></th>
-                    <th><p>{{session.dateFin | date('d-m-Y')}}</p></th>
-                    <th><p>{{ session.stagiaires | length }}/{{ session.placeTotal }}</p></th>
+                        <th><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></th>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
 
-                    {% if session.stagiaires | length == session.placeTotal %}
-                        <th><p class="complet"> Complet</p></th>
-                    {% else %}
-                        <th><p class="incomplet"> Incomplet</p></th>
-                    {% endif %}
+        <h2>Session fini</h2>
+        <table>
+            <tr class="infoTR">
+                <th>Nom</th>
+                <th>Formation</th>
+                <th>Formateur</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Inscrit</th>
+                <th>Status</th>
+                <th>Edit</th>
+            </tr>
+            {% for session in sessionFini %}
+                {% if session %}
+                    <tr class="sessionTR"> 
+                        <th><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></th>
+                        <th>{{session.formation}}</th>
+                        <th>{{session.formateur}}</th>
+                        <th>{{session.dateDebut | date('d-m-Y')}}</th>
+                        <th>{{session.dateFin | date('d-m-Y')}}</th>
+                        <th>{{ session.stagiaires | length }}/{{ session.placeTotal }}</th>
 
-                    <th><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></th>
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
-    
+                        {% if session.stagiaires | length == session.placeTotal %}
+                        <th class="complet">Complet</th>
+                        {% else %}
+                            <th class="incomplet"><p class="incomplet"> Incomplet</th>
+                        {% endif %}
+
+                        <th><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></th>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </main>
+    </div>
 {% endblock %}

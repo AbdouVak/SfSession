@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Liste des formateurs</h1>
+    <div class="container">
     <main>
         <a class="btn" href="{{ path('add_formateur')}}">Ajouter formateur</a>
         <table>
@@ -20,4 +21,5 @@
             {% endfor %}
         </table>
     </main>
+    </div>
 {% endblock %}

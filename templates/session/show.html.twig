@@ -5,21 +5,27 @@
 {% block body %}
     <div>
     <h1>   {{ session.nom }} </h1>
-    <p><a href="{{ path('edit_session',{'id': session.id}) }}" >modifier</a></p>
+    <div class="container">
 
-    <p> Formation: {{ session.formation.nom }} </p>
-    <p> Formateur: <a href="{{ path('show_formateur' ,{'id': session.formateur.id}) }}">{{ session.formateur }}</a> </p>
-    <p> Date début: {{ session.dateDebut| date('d-m-Y')}} </p>
-    <p> Date fin: {{ session.dateFin| date('d-m-Y')}} </p>
-    <p> Inscrit: {{ session.stagiaires | length }}/{{ session.placeTotal }} </p>
-    {% if session.stagiaires | length == session.placeTotal %}
-            <p class="complet"> Complet</p>
-        {% else %}
-            <p class="incomplet"> Incomplet</p>
-    {% endif %}
+    
+    <a href="{{ path('edit_session',{'id': session.id}) }}" class="btn">modifier</a>
 
-
-    <h2>Stagiare inscrit</h2>
+    <main>
+        <div class="desc">
+        Formation: {{ session.formation.nom }}<br>
+        <div class="row">Formateur: <a href="{{ path('show_formateur' ,{'id': session.formateur.id}) }}">{{ session.formateur }}</a></div>
+        Date début: {{ session.dateDebut| date('d-m-Y')}}<br>
+        Date fin: {{ session.dateFin| date('d-m-Y')}}<br>
+        Inscrit: {{ session.stagiaires | length }}/{{ session.placeTotal }}<br>
+        {% if session.stagiaires | length == session.placeTotal %}
+                <div class="row">Status: <div class="complet"> Complet</div></div>
+            {% else %}
+                <div class="row">Status: <div class="incomplet"> Incomplet</div></div>
+        {% endif %}
+        </div>
+    </main>
+    </div>
+    {# <h2>Stagiare inscrit</h2>
     <table>
 
         <tr>
@@ -57,7 +63,7 @@
 
                 <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}</a></td>
 
-                <td><a href="{{ path('add_Stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': session.id}) }}"><i class="fa-solid fa-plus"></i></a></td>
+                <td><a href="{{ path('add_Stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
             </tr>
         {% endfor %}
         
@@ -105,6 +111,6 @@
             </form>
             
         {% endfor %}
-    </table>
+    </table> #}
     </div>
 {% endblock %}

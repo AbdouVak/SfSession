@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Liste des stagiaires</h1>
-
+    <div class="container">
     <main>
         <a href="{{ path('add_stagiaire')}}" class="btn">Ajouter stagiaire</a>
 
@@ -23,4 +23,5 @@
             {% endfor %}
         </table>
     </main>
+    </div>
 {% endblock %}

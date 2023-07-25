@@ -4,8 +4,18 @@
 
 {% block body %}
     <h1>Liste des formations</h1>
-
-    {% for formation in formations %}
-        <p> {{ formation }} </p>
-    {% endfor %}
+    <div class="container">
+    <main>
+        <table>
+        <tr>
+            <th>Nom</th>
+        </tr>
+        {% for formation in formations %}
+            <tr>
+                <th><a href="{{ path('show_formation' ,{'id': formation.id}) }}">{{ formation }}</a></th>
+            </tr>
+        {% endfor %}
+        </table>
+    </main>
+    </div>
 {% endblock %}

@@ -45,6 +45,7 @@ class SessionRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
     public function findNonInscrits($session_id): array
     {
         $em = $this->getEntityManager();
@@ -73,7 +74,8 @@ class SessionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findModule($session_id): array
+
+    public function findModuleAjoutable($session_id): array
     {
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
@@ -85,6 +87,7 @@ class SessionRepository extends ServiceEntityRepository
             ->leftJoin('m.programmes', 'mp')
             ->leftJoin('mp.session', 's')
             ->where('s.id = :id');
+
 
         $sub = $em->createQueryBuilder();
             // sélectionner tous les stagiaires qui ne SONT PAS (NOT IN) dans le résultat précédent
@@ -99,6 +102,55 @@ class SessionRepository extends ServiceEntityRepository
             
         // renvoyer le résultat
         $query = $sub->getQuery();
+        return $query->getResult();
+    }
+
+
+    public function findSessionEnCours(): array
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('s')
+            ->from('App\Entity\Session', 's')
+            ->where('s.dateFin > ?1')
+            ->andWhere('s.dateDebut < ?1')
+            ->setParameter(1, date("Y/m/d"));
+
+        // renvoyer le résultat
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+
+    public function findSessionFini(): array
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('s')
+            ->from('App\Entity\Session', 's')
+            ->where('s.dateFin < ?1')
+            ->setParameter(1, date("Y/m/d"));
+            
+        // renvoyer le résultat
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+
+    public function findSessionAVenir(): array
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('s')
+            ->from('App\Entity\Session', 's')
+            ->where('s.dateDebut > ?1')
+            ->setParameter(1, date("Y/m/d"));
+            
+        // renvoyer le résultat
+        $query = $qb->getQuery();
         return $query->getResult();
     }
 }

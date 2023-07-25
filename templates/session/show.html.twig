@@ -57,7 +57,7 @@
 
                 <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}</a></td>
 
-                <td><a href="{{ path('add_Stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
+                <td><a href="{{ path('add_Stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': session.id}) }}"><i class="fa-solid fa-plus"></i></a></td>
             </tr>
         {% endfor %}
         

@@ -3,23 +3,32 @@
 {% block title %}Hello FormateurController!{% endblock %}
 
 {% block body %}
-    <h1>Liste des formateurs</h1>
+    <body class="body">
+    
     <div class="container">
-    <main>
-        <a class="btn" href="{{ path('add_formateur')}}">Ajouter formateur</a>
-        <table>
-            <tr>
-                <th>Nom</th>
-                <th>Prenom</th>
-            </tr>
+        <main>
+        <h1>Liste des formateurs</h1>
 
-            {% for formateur in formateurs %}
+        <a href="{{ path('add_formateur')}}" class="btn" >Ajouter formateur</a>
+
+        <table class="tableau-style">
+            <thead>
                 <tr>
-                    <th><a href="{{ path('show_formateur' ,{'id': formateur.id}) }}">{{ formateur.nom}}  </a></th>
-                    <th><a href="{{ path('show_formateur' ,{'id': formateur.id}) }}">{{ formateur.prenom}}  </a></th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
                 </tr>
-            {% endfor %}
+            </thead>
+
+            <tbody>
+                {% for formateur in formateurs %}
+                    <tr>
+                        <td><a href="{{ path('show_formateur' ,{'id': formateur.id}) }}">{{ formateur.nom}}  </a></td>
+                        <td><a href="{{ path('show_formateur' ,{'id': formateur.id}) }}">{{ formateur.prenom}}  </a></td>
+                    </tr>
+                {% endfor %}
+            <tbody>
         </table>
-    </main>
+        </main>
     </div>
+    </body>
 {% endblock %}

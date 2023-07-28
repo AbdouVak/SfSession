@@ -3,25 +3,32 @@
 {% block title %}Hello SessionController!{% endblock %}
 
 {% block body %}
-    <h1>Liste des stagiaires</h1>
+    <body class="body">
+
     <div class="container">
-    <main>
+        <main>
+        <h1>Liste des stagiaires</h1>
+
         <a href="{{ path('add_stagiaire')}}" class="btn">Ajouter stagiaire</a>
 
-        <table>
-            <tr>
-                <th>Nom</th>
-                <th>Prenom</th>
-            </tr>
+        <table class="tableau-style">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                </tr>
+            </thead>
 
-            {% for stagiaire in stagiaires %}
-            <tr>
-                <th><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{ stagiaire.nom }}</a></th>
-
-                <th><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{ stagiaire.prenom }}</a></th>
-            </tr>
-            {% endfor %}
+            <tbody>
+                {% for stagiaire in stagiaires %}
+                    <tr>
+                        <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{ stagiaire.nom }}</a></td>
+                        <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{ stagiaire.prenom }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
-    </main>
+        </main>
     </div>
+    </body>
 {% endblock %}

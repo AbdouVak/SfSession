@@ -3,111 +3,132 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
+    <body class="body">
 
-    <h1>Session</h1>
     <div class="container">
-    <main>
+        <main>
+        <h1>Session</h1>
+
         <h2>Session a venir</h2>
-        <table>
-            <tr class="infoTR">
-                <th>Nom</th>
-                <th>Formation</th>
-                <th>Formateur</th>
-                <th>Date début</th>
-                <th>Date fin</th>
-                <th>Inscrit</th>
-                <th>Status</th>
-                <th>Edit</th>
-            </tr>
+
+        <table class="tableau-style">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Formation</th>
+                    <th>Formateur</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Inscrit</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+
+            <tbody>
             {% for session in sessionAVenir %}
                 {% if session %}
-                <tr class="sessionTR"> 
-                <th><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></th>
-                    <th>{{session.formation}}</th>
-                    <th>{{session.formateur}}</th>
-                    <th>{{session.dateDebut | date('d-m-Y')}}</th>
-                    <th>{{session.dateFin | date('d-m-Y')}}</th>
-                    <th>{{ session.stagiaires | length }}/{{ session.placeTotal }}</th>
+                <tr> 
+                    <td><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></td>
+                    <td><a href="{{ path('show_formation' ,{'id': session.formation.id}) }}">{{session.formation}}</a></td>
+                    <td><a href="{{ path('show_formateur' ,{'id': session.formateur.id}) }}">{{session.formateur}}</a></td>
+                    <td>{{session.dateDebut | date('d-m-Y')}}</td>
+                    <td>{{session.dateFin | date('d-m-Y')}}</td>
+                    <td>{{ session.stagiaires | length }}/{{ session.placeTotal }}</td>
 
                     {% if session.stagiaires | length == session.placeTotal %}
-                        <th class="complet">Complet</th>
+                        <td class="complet">Complet</td>
                     {% else %}
-                        <th class="incomplet"><p class="incomplet"> Incomplet</th>
+                        <td class="incomplet"><p class="incomplet"> Incomplet</td>
                     {% endif %}
 
-                    <th><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></th>
+                    <td><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></td>
                 </tr>
                 {% endif %}
             {% endfor %}
+            </tbody>
         </table>
 
         <h2>Session en cours</h2>
-        <table>
-            <tr class="infoTR">
-                <th>Nom</th>
-                <th>Formation</th>
-                <th>Formateur</th>
-                <th>Date début</th>
-                <th>Date fin</th>
-                <th>Inscrit</th>
-                <th>Status</th>
-                <th>Edit</th>
-            </tr>
-            {% for session in sessionEnCours %}
+
+        <table class="tableau-style">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Formation</th>
+                    <th>Formateur</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Inscrit</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for session in sessionEnCours  %}
                 {% if session %}
-                    <tr class="sessionTR"> 
-                        <th><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></th>
-                        <th>{{session.formation}}</th>
-                        <th>{{session.formateur}}</th>
-                        <th>{{session.dateDebut | date('d-m-Y')}}</th>
-                        <th>{{session.dateFin | date('d-m-Y')}}</th>
-                        <th>{{ session.stagiaires | length }}/{{ session.placeTotal }}</th>
+                <tr> 
+                    <td><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></td>
+                    <td><a href="{{ path('show_formation' ,{'id': session.formation.id}) }}">{{session.formation}}</a></td>
+                    <td><a href="{{ path('show_formateur' ,{'id': session.formateur.id}) }}">{{session.formateur}}  </a></td>
+                    <td>{{session.dateDebut | date('d-m-Y')}}</td>
+                    <td>{{session.dateFin | date('d-m-Y')}}</td>
+                    <td>{{ session.stagiaires | length }}/{{ session.placeTotal }}</td>
 
-                        {% if session.stagiaires | length == session.placeTotal %}
-                        <th class="complet">Complet</th>
-                        {% else %}
-                            <th class="incomplet"><p class="incomplet"> Incomplet</th>
-                        {% endif %}
+                    {% if session.stagiaires | length == session.placeTotal %}
+                        <td class="complet">Complet</td>
+                    {% else %}
+                        <td class="incomplet"><p class="incomplet"> Incomplet</td>
+                    {% endif %}
 
-                        <th><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></th>
-                    </tr>
+                    <td><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></td>
+                </tr>
                 {% endif %}
             {% endfor %}
+            </tbody>
         </table>
 
         <h2>Session fini</h2>
-        <table>
-            <tr class="infoTR">
-                <th>Nom</th>
-                <th>Formation</th>
-                <th>Formateur</th>
-                <th>Date début</th>
-                <th>Date fin</th>
-                <th>Inscrit</th>
-                <th>Status</th>
-                <th>Edit</th>
-            </tr>
-            {% for session in sessionFini %}
+
+        <table class="tableau-style">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Formation</th>
+                    <th>Formateur</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Inscrit</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for session in sessionFini  %}
                 {% if session %}
-                    <tr class="sessionTR"> 
-                        <th><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></th>
-                        <th>{{session.formation}}</th>
-                        <th>{{session.formateur}}</th>
-                        <th>{{session.dateDebut | date('d-m-Y')}}</th>
-                        <th>{{session.dateFin | date('d-m-Y')}}</th>
-                        <th>{{ session.stagiaires | length }}/{{ session.placeTotal }}</th>
+                <tr> 
+                    <td><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></td>
+                    <td><a href="{{ path('show_formation' ,{'id': session.formation.id}) }}">{{session.formation}}</a></td>
+                    <td><a href="{{ path('show_formateur' ,{'id': session.formateur.id}) }}">{{session.formateur}}  </a></td>
+                    <td>{{session.dateDebut | date('d-m-Y')}}</td>
+                    <td>{{session.dateFin | date('d-m-Y')}}</td>
+                    <td>{{ session.stagiaires | length }}/{{ session.placeTotal }}</td>
 
-                        {% if session.stagiaires | length == session.placeTotal %}
-                        <th class="complet">Complet</th>
-                        {% else %}
-                            <th class="incomplet"><p class="incomplet"> Incomplet</th>
-                        {% endif %}
+                    {% if session.stagiaires | length == session.placeTotal %}
+                        <td class="complet">Complet</td>
+                    {% else %}
+                        <td class="incomplet"><p class="incomplet"> Incomplet</td>
+                    {% endif %}
 
-                        <th><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></th>
-                    </tr>
+                    <td><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></td>
+                </tr>
                 {% endif %}
             {% endfor %}
+            </tbody>
         </table>
     </main>
     </div>
+    </body
 {% endblock %}

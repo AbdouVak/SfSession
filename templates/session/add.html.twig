@@ -3,19 +3,23 @@
 {% block title %}Ajouter session{% endblock %}
 
 {% block body %}
+
     {% if edit %}
-    <h1>Editer nom une session</h1>
+        <h1>Editer nom une session</h1>
     {% else %}
-    <h1>Ajouter une session</h1>
+        <h1>Ajouter une session</h1>
     {% endif %}
 
-    {{ form_start(formAddsession) }}
-        {{form_row(formAddsession.nom) }}
-        {{form_row(formAddsession.formation) }}
-        {{form_row(formAddsession.formateur) }}
-        {{form_row(formAddsession.placeTotal) }}
-        {{form_row(formAddsession.dateDebut) }}
-        {{form_row(formAddsession.dateFin) }}
-    {{ form_end(formAddsession) }}
-
+    <div class="container">
+        <div class="formContainer">
+            {{ form_start(formAddsession) }}
+                {{form_row(formAddsession.nom) }}
+                {{form_row(formAddsession.formation) }}
+                {{form_row(formAddsession.formateur) }}
+                {{form_row(formAddsession.placeTotal) }}
+                {{form_row(formAddsession.dateDebut) }}
+                {{form_row(formAddsession.dateFin) }}
+            {{ form_end(formAddsession) }}
+        </div>
+    </div>
 {% endblock %}

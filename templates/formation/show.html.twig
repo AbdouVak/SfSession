@@ -1,41 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des formations{% endblock %}
+{% block title %}Hello FormateurController!{% endblock %}
 
 {% block body %}
-    <h1>Liste des sessions de la formation {{formation}}</h1>
+    <body class="body">
+    
     <div class="container">
         <main>
-        <table>
-            <tr class="infoTR">
-                <th>Nom</th>
-                <th>Formation</th>
-                <th>Formateur</th>
-                <th>Date début</th>
-                <th>Date fin</th>
-                <th>Inscrit</th>
-                <th>Status</th>
-                <th>Edit</th>
-            </tr>
-        {% for session in sessions %}
-            <tr class="sessionTR"> 
-                <th><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></th>
-                <th>{{session.formation}}</th>
-                <th>{{session.formateur}}</th>
-                <th>{{session.dateDebut | date('d-m-Y')}}</th>
-                <th>{{session.dateFin | date('d-m-Y')}}</th>
-                <th>{{ session.stagiaires | length }}/{{ session.placeTotal }}</th>
-    
-                {% if session.stagiaires | length == session.placeTotal %}
-                    <th><p class="complet"> Complet</p></th>
-                {% else %}
-                    <th><p class="incomplet"> Incomplet</p></th>
-                {% endif %}
-    
-                <th><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></th>
-            </tr>
-        {% endfor %}
+        <h1>Liste des sessions de la formation {{formation}}</h1>
+
+        <a href="{{ path('add_session')}}" class="btn">Ajouter sessions</a><br>
+
+        <table class="tableau-style">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Formation</th>
+                    <th>Formateur</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Inscrit</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for session in formation.sessions %}
+                <tr> 
+                    <td><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></td>
+                    <td><a href="{{ path('show_formation' ,{'id': formation.id}) }}">{{formation}}</a></td>
+                    <td><a href="{{ path('show_formateur' ,{'id': session.formateur.id}) }}">{{session.formateur}}  </a></td>
+                    <td>{{session.dateDebut | date('d-m-Y')}}</td>
+                    <td>{{session.dateFin | date('d-m-Y')}}</td>
+                    <td>{{ session.stagiaires | length }}/{{ session.placeTotal }}</td>
+
+                    {% if session.stagiaires | length == session.placeTotal %}
+                        <td class="complet">Complet</td>
+                    {% else %}
+                        <td class="incomplet"> Incomplet</td>
+                    {% endif %}
+
+                    <td><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
         </table>
         </main>
     </div>
+    </body>
 {% endblock %}

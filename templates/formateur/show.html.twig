@@ -3,13 +3,51 @@
 {% block title %}Hello FormateurController!{% endblock %}
 
 {% block body %}
-    <h1> {{ formateur}}</h1>
-    <p><a href="{{ path('edit_formateur',{'id': formateur.id}) }}" >modifier</a></p>
+    <body class="body">
+    
+    <div class="container">
+        <main>
+        <h1>Liste des sessions</h1>
 
-    <h2>Listes des sessions</h2>
-    {% for session in formateur.sessions %}
-        <a href="{{ path('show_session' ,{'id': session.id}) }}">
-            <p> {{ "Intitulé"}} {{session.nom}} {{ "( du"}} {{ session.dateDebut | date('d-m-Y') }} {{ "au"}}  {{ session.dateFin | date('d-m-Y') }} {{")"}}</p>
-        </a>        
-    {% endfor %}
+        <a href="{{ path('add_session')}}" class="btn">Ajouter sessions</a><br>
+
+        <table class="tableau-style">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Formation</th>
+                    <th>Formateur</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Inscrit</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for session in formateur.sessions %}
+                <tr> 
+                    <td><a href="{{ path('show_session' ,{'id': session.id}) }}">{{ session }}<a></td>
+                    <td><a href="{{ path('show_formation' ,{'id': session.formation.id}) }}">{{session.formation}}</a></td>
+                    <td><a href="{{ path('show_formateur' ,{'id': session.formateur.id}) }}">{{session.formateur}}  </a></td>
+                    <td>{{session.dateDebut | date('d-m-Y')}}</td>
+                    <td>{{session.dateFin | date('d-m-Y')}}</td>
+                    <td>{{ session.stagiaires | length }}/{{ session.placeTotal }}</td>
+
+                    {% if session.stagiaires | length == session.placeTotal %}
+                        <td class="complet">Complet</td>
+                    {% else %}
+                        <td class="incomplet"> Incomplet</td>
+                    {% endif %}
+
+                    <td><a href="{{ path('edit_session',{'id': session.id}) }}">M</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+        </main>
+    </div>
+    </body>
 {% endblock %}

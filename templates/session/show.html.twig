@@ -3,114 +3,135 @@
 {% block title %}Hello SessionController!{% endblock %}
 
 {% block body %}
-    <div>
-    <h1>   {{ session.nom }} </h1>
+<body class="body">
     <div class="container">
+        <main>
+            <div class="container">
 
-    
-    <a href="{{ path('edit_session',{'id': session.id}) }}" class="btn">modifier</a>
-
-    <main>
-        <div class="desc">
-        Formation: {{ session.formation.nom }}<br>
-        <div class="row">Formateur: <a href="{{ path('show_formateur' ,{'id': session.formateur.id}) }}">{{ session.formateur }}</a></div>
-        Date début: {{ session.dateDebut| date('d-m-Y')}}<br>
-        Date fin: {{ session.dateFin| date('d-m-Y')}}<br>
-        Inscrit: {{ session.stagiaires | length }}/{{ session.placeTotal }}<br>
-        {% if session.stagiaires | length == session.placeTotal %}
-                <div class="row">Status: <div class="complet"> Complet</div></div>
-            {% else %}
-                <div class="row">Status: <div class="incomplet"> Incomplet</div></div>
-        {% endif %}
-        </div>
-    </main>
-    </div>
-    {# <h2>Stagiare inscrit</h2>
-    <table>
-
-        <tr>
-            <th>Prénom</th>
-            <th>Nom</th>
-            <th>Ajouté</th>
-        </tr>
-        
-
-        {% for stagiaire in session.stagiaires %}
-            <tr>
-                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}<a></td>
-
-                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}<a></td>
-
-                <th><a href="{{ path('remove_stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></th>
-            </tr>    
-        {% endfor %}
-        
-    </table>
-
-    
-    <h2>Stagiare non-inscrit</h2>
-    <table>
-
-        <tr>
-            <th>Prénom</th>
-            <th>Nom</th>
-            <th>Ajouté</th>
-        </tr>
-
-        {% for stagiaire in stagiairesNI %}
-            <tr>
-                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}</a></td>
-
-                <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}</a></td>
-
-                <td><a href="{{ path('add_Stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
-            </tr>
-        {% endfor %}
-        
-
-    </table>
-
-
-    
-    <h2>Modulé ajouté</h2>
-    <table>
-        <tr>
-            <th>Nom</th>
-            <th>Retiré</th>
-        </tr>
-        
-        {% for programme in session.programmes %}
-            <tr>
-                <td>{{programme.module.nom}}</td>
-                <td><a href="{{ path('remove_Programme' ,{'programme_id': programme.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
-            </tr>
-        {% endfor %}
-        
-    </table>
-
-
-    
-
-    <h2>Module ajoutable</h2>
-    <table>
-        <tr>
-            <th>Nom</th>
-            <th>Jour</th>
-            <th>Ajouté</th>
-        </tr>
-        
-        {% for module in moduleAjoutable %}
-            <form action="{{ path('add_Programme' ,{'module_id': module.id,'session_id': session.id}) }}" method="post" id="". module.nom ."" >
-
-                <tr>
-                    <td>{{ module.nom}}</td>
-                    <td><input type="number" name="jour"></td>
-                    <td><input type="submit" value="ajouter module" id="". module.nom .""></i></td>
-                </tr>
-
-            </form>
+            <h1>   {{ session.nom }} </h1>
+            <a href="{{ path('edit_session',{'id': session.id}) }}" class="btn">modifier</a>
             
-        {% endfor %}
-    </table> #}
+            <div class="description">
+                Formation: {{ session.formation.nom }}<br>
+                <div class="row">Formateur: <a href="{{ path('show_formateur' ,{'id': session.formateur.id}) }}">{{ session.formateur }}</a></div>
+                Date début: {{ session.dateDebut| date('d-m-Y')}}<br>
+                Date fin: {{ session.dateFin| date('d-m-Y')}}<br>
+                Inscrit: {{ session.stagiaires | length }}/{{ session.placeTotal }}<br>
+                {% if session.stagiaires | length == session.placeTotal %}
+                        <div class="row">Status: <div class="complet"> Complet</div></div>
+                {% else %}
+                        <div class="row">Status: <div class="incomplet"> Incomplet</div></div>
+                {% endif %}
+            </div>
+
+        <div class="superTableContainer">
+            <div class="tableContainer">
+                <h2>Stagiare inscrit</h2>
+
+                <table class="tableau-style">
+                    <thead>
+                        <tr>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Ajouté</th>
+                        </tr>
+                    </thead>
+                    
+                    </tbody>
+                    {% for stagiaire in session.stagiaires %}
+                        <tr>
+                            <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}<a></td>
+
+                            <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}<a></td>
+
+                            <td><a href="{{ path('remove_stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
+                        </tr>    
+                    {% endfor %}
+                    </tbody>
+                    
+                </table>
+            </div>
+
+            <div class="tableContainer">
+                <h2>Modulé ajouté</h2>
+
+                <table class="tableau-style">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Jour</th>
+                            <th>Retiré</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                    {% for programme in session.programmes %}
+                        <tr>
+                            <td>{{programme.module.nom}}</td>
+                            <td>{{programme.jour}}</td>
+                            <td><a href="{{ path('remove_Programme' ,{'programme_id': programme.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="tableContainer">
+                <h2>Stagiare non-inscrit</h2>
+
+                <table class="tableau-style">
+                    <thead>
+                        <tr>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Ajouté</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for stagiaire in stagiairesNI %}
+                        <tr>
+                            <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.nom}}</a></td>
+
+                            <td><a href="{{ path('show_stagiaire' ,{'id': stagiaire.id}) }}">{{stagiaire.prenom}}</a></td>
+
+                            <td><a href="{{ path('add_Stagiaire' ,{'stagiaire_id': stagiaire.id,'session_id': session.id}) }}"><i class="fa-solid fa-minus"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+        
+            <div class="tableContainer">
+                <h2>Module ajoutable</h2>
+
+                <table class="tableau-style">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Jour</th>
+                            <th>Ajouté</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                    {% for module in moduleAjoutable %}
+                        <form action="{{ path('add_Programme' ,{'module_id': module.id,'session_id': session.id}) }}" method="post" id="". module.nom ."" >
+                            <tr>
+                                <td>{{ module.nom}}</td>
+                                <td><input type="number" name="jour"></td>
+                                <td><input type="submit" value="ajouter module" id="". module.nom .""></i></td>
+                            </tr>
+                        </form>
+                    {% endfor %}
+                    </tbody>
+                </table> 
+
+            </div>
+        </div>
     </div>
+<body>
 {% endblock %}

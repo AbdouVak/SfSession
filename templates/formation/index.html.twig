@@ -3,18 +3,28 @@
 {% block title %}Liste des formations{% endblock %}
 
 {% block body %}
-    <h1>Liste des formations</h1>
+    <body class="body">
+    
     <div class="container">
-    <main>
-        <table>
-        <tr>
-            <th>Nom</th>
-        </tr>
-        {% for formation in formations %}
-            <tr>
-                <th><a href="{{ path('show_formation' ,{'id': formation.id}) }}">{{ formation }}</a></th>
-            </tr>
-        {% endfor %}
+        <main>
+        <h1>Liste des formations</h1>
+
+        <a href="#" class="btn" >Ajouter formateur</a>
+
+        <table class="tableau-style">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                </tr>
+            <thead>
+
+            <tbody>
+                {% for formation in formations %}
+                    <tr>
+                        <td><a href="{{ path('show_formation' ,{'id': formation.id}) }}">{{ formation }}</a></td>
+                    </tr>
+                {% endfor %}
+            <tbody>
         </table>
     </main>
     </div>
